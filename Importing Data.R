@@ -49,3 +49,34 @@ hotdogs2 <- read.delim(path, header = FALSE,
 head(hotdogs2)
 
 #read.csv e read.delim irá chamar o read.table
+
+# Irá listar todos os arquivos/pasta que existe no diretorio
+dir()
+dir("DataSets/")
+
+install.packages("readr")
+library(readr)
+potatoes <- read_csv("DataSets/potatoes.csv")
+
+
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+# tsv - separador é o tab
+potatoes <- read_tsv("DataSets/potatoes.txt", col_names = properties)
+head(potatoes)
+
+# read_delim é a função principal do pacote readr(assim como read.table é a função principal de utils)
+# devemos passar dois argumentos, arquivos, e o delimitador
+potatoes <- read_delim("DataSets/potatoes.txt", col_names = properties, delim = "\t")
+head(potatoes)
+
+# o argumento skip determina a quantidade de linha que vai ser ignorada no começo do arquivo
+# nmax - quantidade de linha que irá importar do arquivo
+potatoes_fragment <- read_tsv("DataSets/potatoes.txt", skip = 6, n_max = 5, col_names = properties)
+
+
+# podemos definir os tipos das colunas com o argumento col_types 
+# Se passar como NULL ele irá ignorar a coluna
+# c - character, d double, i integer, l logical, _ skips
+potatoes_char <- read_tsv("DataSets/potatoes.txt", col_types = "cccccccc", col_names = properties)
+str(potatoes_char)
