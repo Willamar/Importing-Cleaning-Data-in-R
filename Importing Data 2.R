@@ -112,3 +112,108 @@ resp
 
 content(resp, as = "text")
 content(resp)
+
+install.packages("jsonlite")
+library(jsonlite)
+
+#fromJSON() irá converter em uma lista
+wine_json <- '{"name":"Chateau Migraine", "year":1997, "alcohol_pct":12.4, "color":"red", "awarded":false}'
+wine <- fromJSON(wine_json)
+
+str(wine)
+
+# fromJSON tbm pode acessar url
+quandl_url <- "https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz"
+quandl_data <- fromJSON(quandl_url)
+str(quandl_data)
+
+url_sw4 <- "http://www.omdbapi.com/?apikey=ff21610b&i=tt0076759&r=json"
+url_sw3 <- "http://www.omdbapi.com/?apikey=ff21610b&i=tt0121766&r=json"
+
+sw4 <- fromJSON(url_sw4)
+sw3 <- fromJSON(url_sw3)
+
+sw4$Title
+sw3$Title
+
+sw4$Year > sw3$Year
+
+json1 <- '[1, 2, 3, 4, 5, 6]'
+fromJSON(json1)
+
+json2 <- '{"a": [1, 2, 3], "b": [4, 5, 6]}'
+fromJSON(json2)
+
+
+
+json1 <- '[[1, 2], [3, 4], [5, 6]]'
+j <- fromJSON(json1)[1:2,]
+matrix(j, ncol=2)
+
+json2 <- '[{"a": 1, "b": 2}, {"a": 3, "b": 4}, {"a":5, "b":6}]'
+fromJSON(json2)
+
+
+url_csv <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/water.csv"
+water <- read.csv(url_csv, stringsAsFactors = FALSE)
+water_json <- toJSON(water)
+water_json
+
+# pretty ira deixar o json identado para melhor visualizacao, por default ele é setado como false
+pretty_json <- toJSON(mtcars, pretty= TRUE)
+pretty_json
+
+mini_json <- minify(pretty_json)
+mini_json
+
+# podemos usar o minify para convert uma string JSON identada para minificada
+# e podemos usar o prettify para convert uma string JSON minificada em um identada
+
+prettify(mini_json)
+
+#o poacote haven é meio facil de importa dados de softwares de staticas como SAS, STATA, e SPSS
+# abaixo as funçoes que são utilizadas pra cada tipo de software
+# SAS: read_sas()
+# STATA: read_dta() (or read_stata(), which are identical)
+# SPSS: read_sav() or read_por(), depending on the file type.
+install.packages("haven")
+library(haven)
+
+sales <- read_sas("DataSets/sales.sas7bdat")
+str(sales)
+
+#Ao importar arquivos .dta (stata) irá perceber que existe colunas importada como labelled(pelo que eu entendi é muito parecido com factor do R)
+sugar <- read_dta("http://assets.datacamp.com/production/course_1478/datasets/trade.dta")
+str(sugar)
+# as_factor convert o labelled em um factor
+as_factor(sugar$Date)
+sugar$Date <- as.Date(as_factor(sugar$Date))
+str(sugar)
+
+traits <- read_sav("DataSets/person.sav")
+summary(traits)
+subset(traits, Extroversion > 40 & Agreeableness > 40)
+
+
+work <- read_sav("http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/employee.sav")
+summary(work$GENDER)
+work$GENDER <- as_factor(work$GENDER)
+summary(work$GENDER)
+
+install.packages("foreing")
+library(foreign)
+florida <- read.dta("DataSets/florida.dta")
+tail(florida)
+
+path <- file.path("DataSets", "edequality.dta")
+
+edu_equal_1 <- read.dta(path)
+str(edu_equal_1)
+
+edu_equal_2 <- read.dta(path, convert.factors = FALSE)
+str(edu_equal_2)
+
+edu_equal_3 <- read.dta(path, convert.underscore = TRUE)
+str(edu_equal_3)
+
+head(edu_equal_1)
