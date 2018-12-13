@@ -57,3 +57,20 @@ head(bmi_long, 20)
 # spread faz o contrario, atráves de uma chave ele transforma o registro em uma coluna e coloca com os seus valores
 bmi_wide <- spread(bmi_long, year, bmi_val)
 head(bmi_wide)
+
+# unite junta duas colunas em uma, e adiciona um separador entre os valores
+bmi_cc <- unite(bmi_long, Year_Val, year, bmi_val, sep = "-")
+head(bmi_cc)
+
+# separate, separa o valor da coluna em novas colunas
+bmi_cc_clean <- separate(bmi_cc, col = Year_Val, into = c("year", "val"), sep = "-")
+head(bmi_cc_clean)
+
+
+library(dplyr)
+census <- read.csv("DataSets/census-retail.csv")
+head(census)
+
+census2 <- gather(census, month, amount, -YEAR)
+census2 <- arrange(census2, YEAR)
+head(census2)
