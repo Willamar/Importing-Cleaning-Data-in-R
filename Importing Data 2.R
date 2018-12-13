@@ -116,7 +116,7 @@ content(resp)
 install.packages("jsonlite")
 library(jsonlite)
 
-#fromJSON() irá converter em uma lista
+#fromJSON() ir? converter em uma lista
 wine_json <- '{"name":"Chateau Migraine", "year":1997, "alcohol_pct":12.4, "color":"red", "awarded":false}'
 wine <- fromJSON(wine_json)
 
@@ -159,7 +159,7 @@ water <- read.csv(url_csv, stringsAsFactors = FALSE)
 water_json <- toJSON(water)
 water_json
 
-# pretty ira deixar o json identado para melhor visualizacao, por default ele é setado como false
+# pretty ira deixar o json identado para melhor visualizacao, por default ele ? setado como false
 pretty_json <- toJSON(mtcars, pretty= TRUE)
 pretty_json
 
@@ -171,8 +171,8 @@ mini_json
 
 prettify(mini_json)
 
-#o poacote haven é meio facil de importa dados de softwares de staticas como SAS, STATA, e SPSS
-# abaixo as funçoes que são utilizadas pra cada tipo de software
+#o poacote haven ? meio facil de importa dados de softwares de staticas como SAS, STATA, e SPSS
+# abaixo as fun?oes que s?o utilizadas pra cada tipo de software
 # SAS: read_sas()
 # STATA: read_dta() (or read_stata(), which are identical)
 # SPSS: read_sav() or read_por(), depending on the file type.
@@ -182,7 +182,7 @@ library(haven)
 sales <- read_sas("DataSets/sales.sas7bdat")
 str(sales)
 
-#Ao importar arquivos .dta (stata) irá perceber que existe colunas importada como labelled(pelo que eu entendi é muito parecido com factor do R)
+#Ao importar arquivos .dta (stata) ir? perceber que existe colunas importada como labelled(pelo que eu entendi ? muito parecido com factor do R)
 sugar <- read_dta("http://assets.datacamp.com/production/course_1478/datasets/trade.dta")
 str(sugar)
 # as_factor convert o labelled em um factor
@@ -217,3 +217,13 @@ edu_equal_3 <- read.dta(path, convert.underscore = TRUE)
 str(edu_equal_3)
 
 head(edu_equal_1)
+
+
+demo <- read.spss("DataSets/international.sav", to.data.frame = TRUE)
+boxplot(demo$gdp)
+demo_1 <- read.spss("DataSets/international.sav", to.data.frame = TRUE)
+head(demo_1)
+str(demo_1)
+demo_2 <- read.spss("DataSets/international.sav", to.data.frame = TRUE, use.value.labels = FALSE)
+head(demo_2)
+str(demo_2)

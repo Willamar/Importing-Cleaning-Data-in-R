@@ -253,4 +253,3 @@ removeSheet(my_book, sheet = 4)
 
 # Save workbook to "clean.xlsx"
 saveWorkbook(my_book, "clean.xlsx")
-
