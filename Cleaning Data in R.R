@@ -72,5 +72,11 @@ census <- read.csv("DataSets/census-retail.csv")
 head(census)
 
 census2 <- gather(census, month, amount, -YEAR)
-census2 <- arrange(census2, YEAR)
-head(census2)
+census_long <- arrange(census2, YEAR)
+head(census_long)
+
+
+
+head(census_long, 50)
+census_long2 <- spread(census_long, month, amount)
+head(census_long2, 20)
