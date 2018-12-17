@@ -80,3 +80,42 @@ head(census_long)
 head(census_long, 50)
 census_long2 <- spread(census_long, month, amount)
 head(census_long2, 20)
+
+# Make this evaluate to "character"
+class("TRUE")
+
+# Make this evaluate to "numeric"
+class(8484.00)
+
+# Make this evaluate to "integer"
+class(99L)
+
+# Make this evaluate to "factor"
+class(factor("factor"))
+
+# Make this evaluate to "logical"
+class(FALSE)
+
+library(lubridate)
+
+dmy("17 Sep 2015")
+mdy_hm("July 15, 2012 12:56")
+
+bith <- ymd_hms("1991 Feb 04 10:00:00")
+bith
+class(bith)
+
+
+# manipulando strings
+
+library(stringr)
+
+str_trim(c("   Filip ", "Nick  ", " Jonathan"))
+
+str_pad(c("23485W", "8823453Q", "994Z"), width = 9, side = 'left', pad = "0")
+
+toupper("texto")
+tolower("TEXTO")
+
+str_detect(c("banana", "kiwi"), "a")
+str_replace(c("banana", "kiwi"), "a", "o")
